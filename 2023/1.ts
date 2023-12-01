@@ -20,11 +20,9 @@ console.log(
   input
     .split("\n")
     .map((value) => {
-      return `${/(\d|one|two|three|four|five|six|seven|eight|nine).*/.exec(
+      return `${new RegExp(`(\\d|${numbers.join("|")}).*`).exec(
         value,
-      )?.[1]}${/.*(\d|one|two|three|four|five|six|seven|eight|nine)/.exec(
-        value,
-      )?.[1]}`;
+      )?.[1]}${new RegExp(`.*(\\d|${numbers.join("|")})`).exec(value)?.[1]}`;
     })
     .map((value) => {
       numbers.forEach((number, index) => {
