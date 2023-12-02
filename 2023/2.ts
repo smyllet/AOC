@@ -24,6 +24,11 @@ const games = input.split("\n").map((line) => {
           blue: Number.parseInt(/(\d+) blue/.exec(setLine)?.[1] ?? "0"),
         };
       }),
+    bag: {
+      red: 0,
+      green: 0,
+      blue: 0,
+    },
   };
 });
 
@@ -34,9 +39,30 @@ const possibleGames = games.filter((game) => {
   });
 });
 
+// get max
+games.map((game) => {
+  game.sets.forEach((set) => {
+    if (set.red > game.bag.red) game.bag.red = set.red;
+    if (set.green > game.bag.green) game.bag.green = set.green;
+    if (set.blue > game.bag.blue) game.bag.blue = set.blue;
+  });
+});
+
 console.log(
+  "2.1 :",
   possibleGames
     .map((game) => game.id)
+    .reduce((a, b) => {
+      return a + b;
+    }),
+);
+
+console.log(
+  "2.2 :",
+  games
+    .map((game) => {
+      return game.bag.red * game.bag.green * game.bag.blue;
+    })
     .reduce((a, b) => {
       return a + b;
     }),
